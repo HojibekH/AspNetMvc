@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Yangilik
+
+@{
     ViewData["Title"] = "Create Page";
 }
 <h1>Add New Product</h1>
@@ -9,7 +11,7 @@
  
  
 
-</div>
+@*</div>
     <h3>Name:</h3>
 
 
@@ -25,9 +27,15 @@
   
 <a href="/home/editpage">EditPage sahifasiga o'tish</a>
 
-
+*@
 </div>
 
+<form  asp-action="Create" asp-controller="Home" method="post">
+    <input asp-for="Title" placeholder="title"/>
+    <input asp-for="Description" placeholder="to'liq malumot" />
+    <input asp-for="ImageUrl" placeholder="rasm uchun havola" />
 
+    <button type="submit" class="btn btn-success">Yuborish</button>
+</form>
 
 

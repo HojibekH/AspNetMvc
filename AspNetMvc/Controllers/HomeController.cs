@@ -9,21 +9,23 @@ namespace AspNetMvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DataContext _dataContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            DataContext dataContext
+            )
         {
             _logger = logger;
-        }
-
-        private readonly DataContext _dataContext;
-        public HomeController(DataContext dataContext)
-        {
             _dataContext = dataContext;
         }
 
+       
+
         public IActionResult Index()
         {
-            return View();
+            var news = _dataContext.Yangiliklar.ToList();
+            return View(news);
         }
 
         public IActionResult EditPage()
@@ -60,7 +62,7 @@ namespace AspNetMvc.Controllers
                 return View(yangilik);
             await _dataContext.Yangiliklar.AddAsync(yangilik);
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction("YangiliklarList", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public IActionResult Create() => View();
@@ -76,7 +78,7 @@ namespace AspNetMvc.Controllers
                 _dataContext.Yangiliklar.Remove(yangilik);
                 await _dataContext.SaveChangesAsync();
             }
-            return RedirectToAction("YangiliklarList", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public IActionResult Edit(int id)
@@ -87,7 +89,7 @@ namespace AspNetMvc.Controllers
             {
                 return View(yangilik);
             }
-            return RedirectToAction("YangiliklarList", "Home");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Yangilik yangilik)
@@ -99,12 +101,12 @@ namespace AspNetMvc.Controllers
                 .FirstOrDefaultAsync(y => y.Id == yangilik.Id);
             if (yangilik is null)
             {
-                return RedirectToAction("YangiliklarList", "Home");
+                return RedirectToAction("Index", "Home");
             }
            
             yangilikDb.Title = yangilik.Title;
             yangilikDb.Description=yangilik.Description;
-            yangilikDb.Image = yangilik.Image;
+           // yangilikDb.ImageUrl = yangilik.Image;
 
 
             await _dataContext.SaveChangesAsync();
