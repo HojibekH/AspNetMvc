@@ -1,33 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Create Page";
+﻿ 
+
+
+
+
+@model List<Yangilik>
+@{
+    ViewData["Title"] = "Yangiliklar ro'yhati";
 }
-<h1>Add New Product</h1>
-<div class="text-center">
-   
-  <button style="background: #444385",background-position: right;>Back</button>
+<div style="display: grid;">
+    <a style="float:left; margin:25px;" class="btn btn-primary" href="/home/CreatePage">Yangi Yangilik yaratish</a>
 
- 
- 
-
-</div>
-    <h3>Name:</h3>
-
-
-    <h3>Detail:</h3>
-
-
-    <h3>Image:</h3>
-
-    <div class="text-center">
-   
-  <button style="background: #444385",background-position: right;>Submit</button>
- 
-  
-<a href="/home/editpage">EditPage sahifasiga o'tish</a>
-
-
+    
+        @foreach (Yangilik yangilik in Model)
+        {
+            <div class="alert alert-primary" style="height: 90px; margin:15px" role="alert">
+                <div>
+                    @yangilik.Id) @yangilik.Title
+                    @yangilik.Description) @yangilik.Description
+                    @yangilik.Image) @yangilik.Image
+                </div>
+                <div style="float:right">
+                      
+                    <a class="btn btn-danger" href="/home/delete/@yangilik.Id">Delete</a>
+                    <a class="btn btn-success" href="/home/edit/@yangilik.Id">Edit</a>
+                </div>
+            </div>
+        }
+    
 </div>
 
 
 
 
+
+<button>  href="/home/CreatePage">Create page sahifasiga o'tish</button>
+
+ 
