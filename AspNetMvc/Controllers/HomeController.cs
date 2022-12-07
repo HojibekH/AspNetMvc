@@ -33,14 +33,15 @@ namespace AspNetMvc.Controllers
             return View();
         }
 
-        public IActionResult ShowProduct()
-        {
-            return View();
-        }
+       
         public IActionResult CreatePage()
         {
             return View();
         }
+     
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -91,6 +92,9 @@ namespace AspNetMvc.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public IActionResult Show() => View();
+
         [HttpPost]
         public async Task<IActionResult> Edit(Yangilik yangilik)
         {
@@ -103,13 +107,21 @@ namespace AspNetMvc.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-           
-            yangilikDb.Title = yangilik.Title;
-            yangilikDb.Description=yangilik.Description;
-           // yangilikDb.ImageUrl = yangilik.Image;
 
+            // yangilikDb.Title = yangilik.Title;
+            // yangilikDb.Description=yangilik.Description;
+            //// yangilikDb.ImageUrl = yangilik.Image;
+            ///
+            if (!string.IsNullOrEmpty(yangilik.Title))
+                yangilik.Title = yangilik.Title;
+            if (!string.IsNullOrEmpty(yangilik.Description))
+                yangilik.Description = yangilik.Description;
+
+            _dataContext.Yangiliklar.Update(yangilik);
             await _dataContext.SaveChangesAsync();
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public IActionResult Edit() => View();
     }
 }
