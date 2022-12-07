@@ -1,32 +1,31 @@
-﻿@{
+﻿@model Yangilik
+
+@{
     ViewData["Title"] = "Edit Page";
 }
 <h1>Edit Product</h1>
-<div class="text-center">
-   
-  <button style="background: #444385",background-position: right;>Back</button>
-
- <a href="/home/index">orqaga qaytish</a>
- 
-
-</div>
-  
-    <table>
-
-    </table>
-
- 
-    <div class="text-center">
-
-
-
-   
-  <button style="background: #444385",background-position: right;>Submit</button>
- 
-  
+@*
 <a href="/home/showproduct">ShowProduct sahifasiga o'tish</a>
 
 
 
-</div>
 
+
+<form  asp-action="Edit" asp-controller="Home" method="post">
+    <input asp-for="Title" placeholder="title"/>
+    <input asp-for="Description" placeholder="to'liq malumot" />
+    <input asp-for="ImageUrl" placeholder="rasm uchun havola" />
+
+    <button type="submit" class="btn btn-success">Yuborish</button>
+</form>
+*@
+
+
+
+<form  asp-action="Edit" asp-controller="Home" method="post">
+    <input asp-for="Title" placeholder="title"/>
+    <input asp-for="Description" placeholder="to'liq malumot" />
+    <input asp-for="ImageUrl" placeholder="rasm uchun havola" />
+
+    <button type="submit" class="btn btn-success">Yuborish</button>
+</form>

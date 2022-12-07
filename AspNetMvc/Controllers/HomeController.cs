@@ -81,7 +81,7 @@ namespace AspNetMvc.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Show(int id)
         {
             var yangilik = _dataContext.Yangiliklar
                 .FirstOrDefault(t => t.Id == id);
@@ -108,9 +108,8 @@ namespace AspNetMvc.Controllers
             yangilikDb.Description=yangilik.Description;
            // yangilikDb.ImageUrl = yangilik.Image;
 
-
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction("YangiliklarList", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
